@@ -1,6 +1,26 @@
 /*
  * Create a list that holds all of your cards
  */
+ let card = document.getElementsByClassName("card");
+ let cards = [...card];
+
+
+ var i;
+ for (i = 0; i < cards.length; i++) {
+ cards[i].addEventListener("click", function(evt) {
+    if (cards[i] === cards[i]) {
+    evt.target.classList.add("show");
+    evt.target.classList.add("open");
+  } else{
+    evt.target.classList.add("match");
+  }
+
+ });
+}
+
+
+
+
 
 
 /*
@@ -11,7 +31,10 @@
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
+
+const restartSelection = document.querySelector("div.restart");
+
+function shuffle(cards) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -23,7 +46,7 @@ function shuffle(array) {
     }
 
     return array;
-}
+};
 
 
 /*
