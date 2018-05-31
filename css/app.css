@@ -76,9 +76,18 @@ h1 {
 }
 
 .deck .card.match {
-    cursor: default;
+    pointer-events: none;
     background: #02ccba;
     font-size: 33px;
+}
+
+.deck .card.unmatched {
+  pointer-events: none;
+	background: #e2043b;
+}
+
+.deck .card.disabled {
+  pointer-events: none;
 }
 
 /*

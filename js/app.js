@@ -1,53 +1,77 @@
-/*
- * Create a list that holds all of your cards
- */
- let card = document.getElementsByClassName("card");
+
+//Create a list that holds all of your cards
+ let card = document.querySelectorAll(".card");
  let cards = [...card];
 
+ // Store open cards
+ let openedCards = [];
 
- var i;
- for (i = 0; i < cards.length; i++) {
- cards[i].addEventListener("click", function(evt) {
-    if (cards[i] === cards[i]) {
-    evt.target.classList.add("show");
-    evt.target.classList.add("open");
-  } else{
-    evt.target.classList.add("match");
-  }
+ //Listen to browser for card clicks
+  for (let i = 0; i < cards.length; i++) {
+  cards[i].addEventListener("click", cardOpen);
+  cards[i].addEventListener("click", display1stCard);
+ }
 
- });
+//Allow cards to be clicked
+ function display1stCard() {
+      this.classList.toggle("show");
+      this.classList.toggle("open");
+      this.classList.toggle("disabled");
 }
 
+//Open card mechanism
+ function cardOpen() {
+     openedCards.push(this);
+     let cardsLength = openedCards.length;
+     if(cardsLength === 2){
+         if(openedCards[0].type === openedCards[1].type){
+            match()
+         } else {
+            unmatch()
+         }
+     }
+ }
+
+//What happen when they match
+ function match(){
+     openedCards[0].classList.add("match");
+     openedCards[1].classList.add("match");
+     openedCards[0].classList.remove("show", "open");
+     openedCards[1].classList.remove("show", "open");
+     openedCards = [];
+ }
+
+//What happens if they do not match
+ function unmatch(){
+      disable();
+     openedCards[0].classList.add("unmatched");
+     openedCards[1].classList.add("unmatched");
+     setTimeout(function(){
+         openedCards[0].classList.remove("show", "open", "unmatched");
+         openedCards[1].classList.remove("show", "open", "unmatched");
+         enable()
+         openedCards = [];
+     },1200);
+ }
+
+ //Disable clicking cards when two cards are open
+ function disable(){
+   let i;
+   for (i=0; i<cards.length; i++){
+     cards[i].classList.add("disabled");
+   }
+ }
+
+ //Enable clicking cards after two unmatched cards are closed
+ function enable(){
+   let i;
+   for (i=0; i<cards.length; i++){
+     cards[i].classList.remove("disabled");
+   }
+ }
 
 
-
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-
-const restartSelection = document.querySelector("div.restart");
-
-function shuffle(cards) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-};
-
+// The end of shuffle function
 
 /*
  * set up the event listener for a card. If a card is clicked:
