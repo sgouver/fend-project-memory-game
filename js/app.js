@@ -67,6 +67,11 @@ let matchCounter = 0 ;
    rating()
  }
 
+ function restartMoves(){
+   moves = 0;
+   document.querySelector(".moves").innerHTML = moves
+ }
+
  //Disable clicking cards when two cards are open
  function disable(){
    let i;
@@ -84,10 +89,13 @@ let matchCounter = 0 ;
  }
 
  //Add refresh button functionality
-let restart = document.getElementsByClassName("restart");
+let restart = document.querySelectorAll(".restart");
+
 let z;
 for (z=0; z < restart.length; z++){
  restart[z].addEventListener("click", function () {
+      matchCounter = 0;
+      time = 0;
        let i;
        for (i=0; i<cards.length; i++){
          cards[i].classList.remove("show", "open", "match", "disabled");
@@ -96,7 +104,8 @@ for (z=0; z < restart.length; z++){
          stars[i].classList.remove("far")
          stars[i].classList.add("fas")
        }
-       startGame()
+       shuffleFunction()
+       restartMoves()
        }
     )
   }
@@ -123,38 +132,45 @@ for (z=0; z < restart.length; z++){
 
 
   //Set a timer
-let time = 0 ;
-function timer(){
-        if (status == 1) {
-          setTimeout(function(){
-                  time++;
-                  let min = Math.floor(time/100/60);
-                  let sec = Math.floor(time/100);
-                  let mSec = time % 100;
+  let time = 0 ;
+  function timer(){
+          if (status == 1) {
+            setTimeout(function(){
+                    time++;
+                    let min = Math.floor(time/100/60);
+                    let sec = Math.floor(time/100);
+                    let mSec = time % 100;
 
-                  if(min < 10) {
-                      min = "0" + min;
-                  }
-                  if(sec >= 60) {
-                      sec = sec % 60;
-                  }
-                  if(sec < 10) {
-                      sec = "0" + sec;
-                  }
+                    if(min < 10) {
+                        min = "0" + min;
+                    }
+                    if(sec >= 60) {
+                        sec = sec % 60;
+                    }
+                    if(sec < 10) {
+                        sec = "0" + sec;
+                    }
 
-                  document.querySelector("#timer").innerHTML = min + ":" + sec;
-                  document.querySelector("#timerModal").innerHTML = min + ":" + sec;
-                  timer();
-            }, 10);
-        }
-    }
+                    document.querySelector("#timer").innerHTML = min + ":" + sec;
+                    document.querySelector("#timerModal").innerHTML = min + ":" + sec;
+                    timer();
+              }, 10);
+          }
+      }
 
   function startTimer(){
         status = 1;
         timer();
-    }
+  }
+
   function stopTimer(){
         status = 0
+  }
+
+   function resetTimer(){
+        status = 0;
+        time = 0;
+        document.querySelector("#timer").innerHTML = '00:00';
    }
 
   //Shuffle function
@@ -174,14 +190,15 @@ function timer(){
   }
 
   function startGame(){
-    moves = 0;
-    time = 0;
     matchCounter = 0;
     startTimer();
-    document.querySelector("#timer").innerHTML = '00:00';
-    document.querySelector(".moves").innerHTML = moves
-     var shuffledCards = shuffle(cards);
-     for (var i= 0; i < shuffledCards.length; i++){
+    shuffleFunction();
+    restartMoves();
+  }
+
+  function shuffleFunction(){
+     let shuffledCards = shuffle(cards);
+     for (let i= 0; i < shuffledCards.length; i++){
         [].forEach.call(shuffledCards, function(item){
            deckShuffle.appendChild(item);
         });
@@ -195,7 +212,6 @@ function timer(){
 
   // Open Modal window
   let modal = document.querySelector(".modal");
-
 
   function openModal() {
     if (matchCounter === 2){
