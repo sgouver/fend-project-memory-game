@@ -132,28 +132,24 @@ let matchCounter = 0 ;
     }
   }
 
-  //Set a timer
+  //Set a timer -- found at https://codingwithsara.com/stopwatch-with-javascript/
   let time = 0 ;
   function timer(){
           if (status == 1) {
             setTimeout(function(){
                     time++;
-                    let min = Math.floor(time/100/60);
                     let sec = Math.floor(time/100);
                     let mSec = time % 100;
 
-                    if(min < 10) {
-                        min = "0" + min;
-                    }
-                    if(sec >= 60) {
-                        sec = sec % 60;
+                    if(sec >= 100) {
+                        sec = sec % 100;
                     }
                     if(sec < 10) {
                         sec = "0" + sec;
                     }
 
-                    document.querySelector("#timer").innerHTML = min + ":" + sec;
-                    document.querySelector("#timerModal").innerHTML = min + ":" + sec;
+                    document.querySelector("#timer").innerHTML = sec + ":" + mSec;
+                    document.querySelector("#timerModal").innerHTML = sec + ":" + mSec;
                     timer();
               }, 10);
           }
