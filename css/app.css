@@ -37,7 +37,6 @@ h1 {
     color: #ffffff ;
 }
 
-
 /*
  * Styles for the deck of cards
  */
@@ -196,7 +195,7 @@ h1 {
 
 .score-panel {
     width: 660px;
-    margin-bottom: 10px;
+    margin-bottom: 2em;
 }
 
 .score-panel .stars {
@@ -235,7 +234,7 @@ h1 {
     font-size: 30px;
     float: right;
     padding-top: 15px;
-    }
+  }
 
 .restart:hover {
     animation-name: unmatchAnimation ;

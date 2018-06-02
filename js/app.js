@@ -89,25 +89,25 @@ let matchCounter = 0 ;
  }
 
  //Add refresh button functionality
-let restart = document.querySelectorAll(".restart");
+  let restart = document.querySelectorAll(".restart");
 
-let z;
-for (z=0; z < restart.length; z++){
- restart[z].addEventListener("click", function () {
-      matchCounter = 0;
-      time = 0;
-       let i;
-       for (i=0; i<cards.length; i++){
-         cards[i].classList.remove("show", "open", "match", "disabled");
-       }
-       for (i=1; i<stars.length; i++){
-         stars[i].classList.remove("far")
-         stars[i].classList.add("fas")
-       }
-       shuffleFunction()
-       restartMoves()
-       }
-    )
+  let z;
+  for (z=0; z < restart.length; z++){
+   restart[z].addEventListener("click", function () {
+        matchCounter = 0;
+        time = 0;
+         let i;
+         for (i=0; i<cards.length; i++){
+           cards[i].classList.remove("show", "open", "match", "disabled");
+         }
+         for (i=1; i<stars.length; i++){
+           stars[i].classList.remove("far")
+           stars[i].classList.add("fas")
+         }
+         shuffleFunction()
+         restartMoves()
+         }
+      )
   }
 
   restart[1].addEventListener("click", startTimer);

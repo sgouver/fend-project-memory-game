@@ -7,14 +7,20 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+The project is a memory game, with a chess theme :
+Rules :
+- A user selects a card and opens a chess piece
+- If the second card is similar then the two chess pieces stay on top.
+- The game ends when the user finds all the eight different matching compilations.
+- A modal pop-up window open up to show the score of the user.
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+Score calculation:
+- Score is based on the player Moves
+- If there are more than 16, a star is removed.
+- If there are more than 30, a second star is removed.
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+- Add a keyboard function for immediate restart, after hitting the "r" key.
+- Alter the timer function to start when the first card is opened, not on the load.
+- Create a more complicated ranking system with final time correlation. 
