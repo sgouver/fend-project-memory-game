@@ -30,47 +30,118 @@ body {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Bungee', cursive;
     font-weight: 300;
+    padding: 0;
+    margin: 0;
+    color: #ffffff ;
 }
+
 
 /*
  * Styles for the deck of cards
  */
+@media screen and (min-height: 880px){
+  .deck {
+      width: 660px;
+      min-height: 680px;
+      background: linear-gradient(160deg, #FFDDB5 5%, #D3986C 95%);
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 3em;
+  }
 
-.deck {
-    width: 660px;
-    min-height: 680px;
-    background: linear-gradient(160deg, #FFDDB5 5%, #D3986C 95%);
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
+  .deck .card {
+      height: 125px;
+      width: 125px;
+      background: url('../img/card_wood.jpg');
+      background-size: cover;
+      font-size: 0;
+      color: #ffffff;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+      transition: transform 1s;
+      transform-style: preserve-3d;
+  }
 }
 
-.deck .card {
-    height: 125px;
-    width: 125px;
-    background: url('../img/card_wood.jpg');
-    background-size: cover;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+@media screen and (max-height: 879px){
+  .deck {
+      width: calc(660px * 0.7);
+      min-height: calc(680px * 0.7);
+      background: linear-gradient(160deg, #FFDDB5 5%, #D3986C 95%);
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 3em;
+  }
+
+  .deck .card {
+      height: calc(125px * 0.7);
+      width: calc(125px * 0.7);
+      background: url('../img/card_wood.jpg');
+      background-size: cover;
+      font-size: 0;
+      color: #ffffff;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+      transition: transform 1s;
+      transform-style: preserve-3d;
+  }
 }
 
 .deck .card.open {
-    transform: rotateY(0);
-    background: #02b3e4;
+    transform: rotateY(0deg);
+    background: url('../img/card_wood_open.jpg');
+    background-size: cover;
     cursor: default;
+    animation-name: flip1Card;
+  	-webkit-backface-visibility: visible !important;
+  	backface-visibility: visible !important;
+  	animation-duration: .50s;
+}
+
+@keyframes flip1Card {
+	from {
+		transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+		animation-timing-function: ease-in;
+		opacity: 0;
+	}
+
+	40% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+		animation-timing-function: ease-in;
+	}
+
+	60% {
+		transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+		opacity: 1;
+	}
+
+	80% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+	}
+
+	to {
+		transform: perspective(400px);
+	}
 }
 
 .deck .card.show {
@@ -79,13 +150,40 @@ h1 {
 
 .deck .card.match {
     pointer-events: none;
-    background: #02ccba;
+    background:  url('../img/card_wood_matched.jpg');
+    animation: matchAnimation 2s;
     font-size: 33px;
+}
+
+@keyframes matchAnimation {
+      0% {
+      transform: scale(.3);
+      border-radius: 30%;
+      }
+      100% {
+        transform: scale(1.2);
+      }
 }
 
 .deck .card.unmatched {
   pointer-events: none;
-	background: #e2043b;
+	background: url('../img/card_wood_unmatched.jpg');
+  animation: unmatchAnimation 1s;
+}
+
+@keyframes unmatchAnimation {
+10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 
 .deck .card.disabled {
@@ -119,7 +217,6 @@ h1 {
   color: #ffffff;
   font-size: 25px;
   display: inline-block;
-  text-align: center;
   padding-left: 100PX;
 }
 
@@ -133,18 +230,25 @@ h1 {
 }
 
 .score-panel .restart {
-    cursor: pointer;
+    cursor: pointer ;
     color: #ffffff;
     font-size: 30px;
     float: right;
+    padding-top: 15px;
     }
 
+.restart:hover {
+    animation-name: unmatchAnimation ;
+    animation-duration: 6s;
+  }
+
 /* The Close Button */
+
 .close {
     color: white;
     float: right;
-    font-size: 28px;
     font-weight: bold;
+    font-size: 1.5em;
 }
 
 .close:hover,
@@ -156,47 +260,79 @@ h1 {
 
 /* Modal content */
 .modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
+    padding: 10px 15px 20px 20px ;
+    background: url('../img/card_wood.jpg');
+    background-size: cover;
+    font-family: "coda" cursive;
     color: white;
 }
 
-.modal-body .stars {
-  display: inline-block;
-  padding: 2px 16px;
+.modal-body{
+  align:center;
+  background: #FFDDB5;
+  padding: 20px 0px 30px 20px ;
 }
 
-.modal-body .stars li {
-    list-style: none;
-    display: inline-block;
+.modal-body .stars {
+  margin: auto;
+  display: inline-block;
+}
+
+.stars li {
+  padding-top: 20px;
+  list-style: none;
+  display: inline-block;
+}
+
+.stars>li {
+  color: #f3cb3c;
+}
+
+.stars > span {
+  font-weight: bold;
+  padding-right: 20px;
+}
+
+.modal-body>li {
+  margin: auto;
+  padding-right: 20px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+#timerModal{
+  color: #6666FF;
+}
+
+.modal-footer>span {
+  padding-right: 30px;
 }
 
 .modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
+    padding: 15px 20px;
+    background: url('../img/card_wood.jpg');
+    background-size: cover;
     color: white;
 }
 
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
+    position: absolute; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
-    left: 0;
+    left: 400px;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
 }
 
 /* Modal Content */
 .modal-content {
     position: relative;
     background-color: #fefefe;
-    margin: auto;
+    font-size: 1.5em;
     padding: 0;
     border: 1px solid #888;
     width: 80%;

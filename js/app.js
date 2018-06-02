@@ -132,7 +132,6 @@ for (z=0; z < restart.length; z++){
     }
   }
 
-
   //Set a timer
   let time = 0 ;
   function timer(){
@@ -216,7 +215,7 @@ for (z=0; z < restart.length; z++){
   let modal = document.querySelector(".modal");
 
   function openModal() {
-    if (matchCounter === 2){
+    if (matchCounter === 8){
     modal.style.display = "block";
     stopTimer()
     }
@@ -240,10 +239,3 @@ for (z=0; z < restart.length; z++){
           modal.style.display = "none";
       }
   }
-
-
-
-/*
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
