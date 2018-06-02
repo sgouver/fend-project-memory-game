@@ -63,13 +63,13 @@ let matchCounter = 0 ;
  let moves = 0;
  function moveCounter(){
    moves += 1
-   document.querySelector(".moves").innerHTML = moves ;
+   document.querySelector(".moves").innerHTML = moves + " Moves" ;
    rating()
  }
 
  function restartMoves(){
    moves = 0;
-   document.querySelector(".moves").innerHTML = moves
+   document.querySelector(".moves").innerHTML = moves + " Moves" ;
  }
 
  //Disable clicking cards when two cards are open
@@ -109,6 +109,8 @@ for (z=0; z < restart.length; z++){
        }
     )
   }
+
+  restart[1].addEventListener("click", startTimer);
 
   //Create a list that holds all of the rating stars
   let star = document.querySelectorAll(".star");

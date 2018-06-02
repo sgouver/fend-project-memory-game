@@ -17,7 +17,8 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background: #ffffff url('../img/chess_background.jpg');
+    background-size: cover;
     font-family: 'Coda', cursive;
 }
 
@@ -40,7 +41,7 @@ h1 {
 .deck {
     width: 660px;
     min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    background: linear-gradient(160deg, #FFDDB5 5%, #D3986C 95%);
     padding: 32px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
@@ -54,7 +55,8 @@ h1 {
 .deck .card {
     height: 125px;
     width: 125px;
-    background: #2e3d49;
+    background: url('../img/card_wood.jpg');
+    background-size: cover;
     font-size: 0;
     color: #ffffff;
     border-radius: 8px;
@@ -95,8 +97,7 @@ h1 {
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
+    width: 660px;
     margin-bottom: 10px;
 }
 
@@ -110,12 +111,33 @@ h1 {
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
+    color: #f3cb3c;
+    font-size: 25px;
+}
+
+.score-panel .moves {
+  color: #ffffff;
+  font-size: 25px;
+  display: inline-block;
+  text-align: center;
+  padding-left: 100PX;
+}
+
+#timer {
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: right;
+  display: inline-block;
+  padding-left: 160px
 }
 
 .score-panel .restart {
-    float: right;
     cursor: pointer;
-}
+    color: #ffffff;
+    font-size: 30px;
+    float: right;
+    }
 
 /* The Close Button */
 .close {
