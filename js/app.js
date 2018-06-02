@@ -3,10 +3,6 @@
  let card = document.querySelectorAll(".card");
  let cards = [...card];
 
- //Create a list that holds all of the rating stars
- let star = document.querySelectorAll(".star");
- let stars = [...star];
-
  // Store open cards
  let openedCards = [];
 
@@ -25,16 +21,20 @@
 }
 
 //Open card mechanism
+let matchCounter = 0 ;
+
  function cardOpen() {
      openedCards.push(this);
      let cardsLength = openedCards.length;
      if(cardsLength === 2){
          if(openedCards[0].type === openedCards[1].type){
             match()
+            matchCounter++ ;
          } else {
             unmatch()
          }
      }
+     openModal()
  }
 
 //What happen when they match
@@ -84,32 +84,40 @@
  }
 
  //Add refresh button functionality
- const restart = document.querySelector(".restart");
+let restart = document.getElementsByClassName("restart");
+let z;
+for (z=0; z < restart.length; z++){
+ restart[z].addEventListener("click", function () {
+       let i;
+       for (i=0; i<cards.length; i++){
+         cards[i].classList.remove("show", "open", "match", "disabled");
+       }
+       for (i=1; i<stars.length; i++){
+         stars[i].classList.remove("far")
+         stars[i].classList.add("fas")
+       }
+       startGame()
+       }
+    )
+  }
 
- restart.addEventListener("click",
- function () {
-   let i;
-   for (i=0; i<cards.length; i++){
-     cards[i].classList.remove("show", "open", "match");
-   }
-   for (i=1; i<stars.length; i++){
-     stars[i].classList.remove("far")
-     stars[i].classList.add("fas")
-   }
-   startGame()
-   setInterval()
- }
-);
+  //Create a list that holds all of the rating stars
+  let star = document.querySelectorAll(".star");
+  let stars = [...star];
 
   //Add Star rating system
   function rating(){
     if (moves > 15 && moves < 29) {
       stars[2].classList.remove("fas")
       stars[2].classList.add("far")
+      stars[5].classList.remove("fas")
+      stars[5].classList.add("far")
     }
     else if (moves > 30) {
       stars[1].classList.remove("fas")
       stars[1].classList.add("far")
+      stars[4].classList.remove("fas")
+      stars[4].classList.add("far")
     }
   }
 
@@ -117,27 +125,37 @@
   //Set a timer
 let time = 0 ;
 function timer(){
+        if (status == 1) {
           setTimeout(function(){
-              time++;
-              let min = Math.floor(time/100/60);
-              let sec = Math.floor(time/100);
-              let mSec = time % 100;
+                  time++;
+                  let min = Math.floor(time/100/60);
+                  let sec = Math.floor(time/100);
+                  let mSec = time % 100;
 
-              if(min < 10) {
-                  min = "0" + min;
-              }
-              if(sec >= 60) {
-                  sec = sec % 60;
-              }
-              if(sec < 10) {
-                  sec = "0" + sec;
-              }
+                  if(min < 10) {
+                      min = "0" + min;
+                  }
+                  if(sec >= 60) {
+                      sec = sec % 60;
+                  }
+                  if(sec < 10) {
+                      sec = "0" + sec;
+                  }
 
-              document.querySelector("#timer").innerHTML = min + ":" + sec;
-              timer();
-          }, 10);
+                  document.querySelector("#timer").innerHTML = min + ":" + sec;
+                  document.querySelector("#timerModal").innerHTML = min + ":" + sec;
+                  timer();
+            }, 10);
+        }
     }
-    timer();
+
+  function startTimer(){
+        status = 1;
+        timer();
+    }
+  function stopTimer(){
+        status = 0
+   }
 
   //Shuffle function
   const deckShuffle = document.querySelector(".deck");
@@ -152,14 +170,15 @@ function timer(){
           array[currentIndex] = array[randomIndex];
           array[randomIndex] = temporaryValue;
       }
-
       return array;
   }
 
   function startGame(){
     moves = 0;
     time = 0;
-    document.querySelector("#timer").innerHTML = '00:00:00';
+    matchCounter = 0;
+    startTimer();
+    document.querySelector("#timer").innerHTML = '00:00';
     document.querySelector(".moves").innerHTML = moves
      var shuffledCards = shuffle(cards);
      for (var i= 0; i < shuffledCards.length; i++){
@@ -171,7 +190,40 @@ function timer(){
 
   //start the game with browser refresh
   window.onload = startGame();
-// The end of shuffle function
+
+  // The end of shuffle function
+
+  // Open Modal window
+  let modal = document.querySelector(".modal");
+
+
+  function openModal() {
+    if (matchCounter === 2){
+    modal.style.display = "block";
+    stopTimer()
+    }
+  }
+
+  // close the modal - click "x"
+  closeModal = document.querySelector(".close")
+  closeModal.addEventListener("click", function() {
+      modal.style.display = "none";
+  });
+
+  // close modal after hitting refresh
+  closeModal = document.querySelector("#closeModal")
+  closeModal.addEventListener("click", function() {
+      modal.style.display = "none";
+  });
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+
+
 
 /*
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
